@@ -4,6 +4,7 @@ let pSide, pBack;
 let music, eSound;
 let pButtons = [];
 let scene;
+let pSize = 160;
 
 async function setup() {
   createCanvas(900, 900);
@@ -28,23 +29,37 @@ function draw() {
   }
   let gp = navigator.getGamepads()[0];
   if (gp) { //makes sure the gamepad actually exists
+    handleButtons(gp);
     let deadzone = 0.15; //ignores tiny movements from the controller bc of stick drift
     let dx = abs(gp.axes[0]) > deadzone ? gp.axes[0] : 0;
     let dy = abs(gp.axes[1]) > deadzone ? gp.axes[1] : 0;
     if (dx !== 0 || dy !== 0) {
-      if(!music.play()) {
+      if(!music.play()) { //needs fixing
         music.loop();
       }
     }
     let speed = 8;
-    x += dx * speed;
-    y += dy * speed;
+    //this is for the movement
+    //scene 1 keeps the same normal speed
+    if (scene === 1) {
+      x += dx * speed;
+      y += dy * speed;
+    }
+    //scene 2 changes the y speed because its supposed to look like the penguin is getting farther 
+    if (scene === 2) {
+      x += dx * speed;
+      y += dy * 1;
+      if (dy < 0) {
+        pSize -= 2;
+      }
+    } 
   }
   if (scene === 1) {
     image(pSide, x, y, 80, 160);
   }
   if (scene === 2) {
-    image(pBack, x, y, 80, 160);
+    pSize = map(y, 0, 290, 10, 160);
+    image(pBack, x, y, pSize / 2, pSize);
   }
 
 }
@@ -64,7 +79,7 @@ function handleButtons(gp) {
           
           //B
         case 1:
-
+          eSound.play();
           break;
           
           //Y
@@ -81,6 +96,6 @@ function handleButtons(gp) {
       }
     }
     
-    previousButtons[index] = currentPressed;
+    pButtons[index] = currentPressed;
   });
 }
