@@ -33,6 +33,7 @@ function draw() {
     let deadzone = 0.15; //ignores tiny movements from the controller bc of stick drift
     let dx = abs(gp.axes[0]) > deadzone ? gp.axes[0] : 0;
     let dy = abs(gp.axes[1]) > deadzone ? gp.axes[1] : 0;
+    //if statement to make sure the music plays when moving
     if (dx !== 0 || dy !== 0) {
       if(!music.play()) { //needs fixing
         music.loop();
@@ -58,6 +59,7 @@ function draw() {
     image(pSide, x, y, 80, 160);
   }
   if (scene === 2) {
+    //used a map here to make it so that the penguin gets smaller the closer it gets to y = 0 but it looks like vro is levitating; need to fix
     pSize = map(y, 0, 290, 10, 160);
     image(pBack, x, y, pSize / 2, pSize);
   }
