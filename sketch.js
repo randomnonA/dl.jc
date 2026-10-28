@@ -79,9 +79,6 @@ function draw() {
     if (scene === 2 || scene === 3) {
       x += dx * speed;
       y += dy * 0.2;
-      if (dy < 0) {
-        pSize -= 3;
-      }
     } 
   }
   //This is essentially the same as the intital background setup but instead for my "sprites" (penguins)
