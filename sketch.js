@@ -9,7 +9,7 @@ let pSize = 160;
 async function setup() {
   createCanvas(900, 900);
   bg = await loadImage('media/bgOne.jpg');
-  bg2 = await loadImage('media/peng_bg_3.png');
+  bg2 = await loadImage('media/peng_bg.jpeg');
   snow = await loadImage('media/snow.png');
   music = await loadSound('media/audiomass.mp3');
   pSide = await loadImage('media/Emperor.png');
