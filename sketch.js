@@ -31,12 +31,22 @@ function draw() {
   if (gp) { //makes sure the gamepad actually exists
     handleButtons(gp);
     let deadzone = 0.15; //ignores tiny movements from the controller bc of stick drift
+    //
+    
     let dx = abs(gp.axes[0]) > deadzone ? gp.axes[0] : 0;
     let dy = abs(gp.axes[1]) > deadzone ? gp.axes[1] : 0;
+    //tests out if dx and dy show anything
+    //console.log(dx);
+    //console.log(dy);
     //if statement to make sure the music plays when moving
     if (dx !== 0 || dy !== 0) {
-      if(!music.play()) { //needs fixing
+      if(!music.playing) { //needs fixing
+        music.start();
+        console.log("start");
         music.loop();
+      }
+      else if (music.play()) {
+        music.stop();
       }
     }
     let speed = 8;
